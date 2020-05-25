@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Citizen Science</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/css/style.css" type="text/css">
+
+  <!-- Include Handlebars from a CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+  <script src="/static/js/main.js" type=module defer></script>
+</head>
+
+<body>
+
+  <header>
+    <div id="logo">Citizen Science</div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#!/users">Users</a></li>
+        <li><a href="#!/observations">Observations</a></li>
+        <li><a href="#!/submit">Submit an observation</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div id="content">
+
+    <div id="heading">
+
+      <h1>Citizen Science</h1>
+      <h2>Understanding Our Trees</h2>
+
+
+      <div id="target"></div>
+
+    </div>
+  </div>
+
+  <footer>
+
+    <div id="social">
+      <ul class="social-list">
+        <li id="social-twitter"><a href="#">Twitter</a></li>
+        <li id="social-facebook"><a href="#">Facebook</a></li>
+        <li id="social-instagram"><a href="#">Instagram</a></li>
+      </ul>
+    </div>
+
+    <ul class="footer-tos">
+      <li><a href="#">Terms</a></li>
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Cookies</a></li>
+    </ul>
+
+    <p id="copyright">All content and images subject to copyright &copy; COMP2110 Citizen Science 2020.</p>
+  </footer>
+
+
+  <!-- Templates -->
+
+  <script id="home-template" type="text/x-handlebars-template">
+      <h2>API Test</h2>
+      <ul class="main-list">
+        <li><a href='/api/observations'>List of Observations</a></li>
+        <li><a href='/api/users'>List of Users</a></li>
+        <li><a href='/api/users/1'>Detail of one user</a></li>
+        <li><a href='/api/observations/1'>Detail of one observation</a></li>
+        </ul>
+        <h2>Recent Observations</h2>
+        <ul class="main-list">
+            {{#each recentObservations}}
+            <li><a href="/#!/observations/{{id}}">Location: {{location}}, weather: {{weather}}</a></li>
+            {{/each}}
+
+        </ul>
+        <h2>Top 10 Users</h2>
+        <ul class="main-list">
+          {{#each topTenUsers}}
+          <li><a href="/#!/users/{{id}}">{{first_name}} {{last_name}}</a></li>
+          {{/each}}
+        </ul>
+  </script>
+
+
+
+  <script id="users-list-template" type="text/x-handlebars-template">
+        <h2>Users List</h2>
+        <ul class="main-list">
+          {{#each users}}
+          <li><a href="/#!/users/{{id}}">{{first_name}} {{last_name}}</a></li>
+          {{/each}}
+        </ul>
+
+  </script>
+
+  <script id="user-template" type="text/x-handlebars-template">
+  <h2>User Profile</h2>
+  <ul class="main-list">
+    <li><a href="/#!/users/{{user.id}}">{{user.first_name}} {{user.last_name}}</a></li>
+  </ul>
+  <h2>Observations by {{user.first_name}} {{user.last_name}}</h2>
+  <ul class="main-list">
+    {{#each observations}}
+        <li><a href='/#!/observations/{{id}}'>Participant: {{participant}}, Weather:
+        {{weather}}, Location: {{location}}</a></li>
+      {{/each}}
+    </ul>
+  </script>
+
+  <script id="observations-list-template" type="text/x-handlebars-template">
+  <h2>Observations List</h2>
+  <ul class="main-list">
+    {{#each observations}}
+    <li><a href="/#!/observations/{{id}}">ID : {{id}} Participant : {{participant}},
+        Location: {{location}}, weather: {{weather}}</a></li>
+    {{/each}}
+  </ul>
+  </script>
+
+  <script id="observation-template" type="text/x-handlebars-template">
+  <h2>Observation details</h2>
+  <ul class="main-list">
+    <li><a href='/#!/observations/{{id}}'>Location: {{location}}, weather:
+        {{weather}}</a></li>
+  </ul>
+</script>
+
+  <script id="form-template" type="text/x-handlebars-template">
+<h2>Submit Form</h2>
+
+<div class="form">
+  <form>
+    Participant <input id='participant' name='participant' value='0' /><br>
+    Temperature <input id='temperature' name='temperature'><br>
+    Height <input id='height' name='height'><br>
+    Girth <input id='girth' name='girth'><br>
+    Location <input id='location' name='location'><br>
+    Weather <select id='weather' name='weather'>
+      <option>sunny</option>
+      <option>fine</option>
+      <option>raining</option>
+      <option>stormy</option>
+      
+    </select><br>
+    wind <select id='wind' name='wind'>
+      <option>none</option>
+      <option>light</option>
+      <option>medium</option>
+      <option>strong</option>
+      
+    </select><br>
+    Leaf-Size <select id='leaf_size' name='leaf_size'>
+      <option>small</option>
+      <option>medium</option>
+      <option>large</option>
+      
+    </select><br>
+    Leaf-Shape <select id='leaf_shape' name='leaf_shape'>
+      <option>pointy</option>
+      <option>divided</option>
+      <option>rounded</option>
+      
+    </select><br>
+    Bark-Color<select id='bark_colour' name='bark_colour'>
+      <option>silver</option>
+      <option>grey</option>
+      <option>brown</option>
+      <option>red</option>
+      
+    </select><br>
+    Bark-Texture <select id='bark_texture' name='bark_texture'>
+      <option>spotty</option>
+      <option>furry</option>
+      <option>smooth/option>
+      <option>crinkles</option>
+      
+    </select><br>
+    <button type='submit'>submit observation</button>
+    </form>
+</div>
+
+</script>
+
+
+</body>
+
+</html>

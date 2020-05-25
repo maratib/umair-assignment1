@@ -1,0 +1,15 @@
+{
+  "name": "assignment1",
+  "version": "1.0.0",
+  "description": "This is the starter kit for the 2020 Web Application assignment. It contains a  Python based web server that provides a JSON API to the data required for the application.  You can run the Python server with the command:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^4.6.0"
+  }
+}
